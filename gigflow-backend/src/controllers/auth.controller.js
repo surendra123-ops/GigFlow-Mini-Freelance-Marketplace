@@ -10,10 +10,12 @@ const sendToken = (user, res) => {
   );
 
   res.cookie("token", token, {
-    httpOnly: true,
-    secure: true, // true in production
-    maxAge: process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
-  });
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  path: "/"
+});
+
 
   return res.json({ message: "Logged in successfully" });
 };
@@ -74,11 +76,13 @@ export const me = async (req, res) => {
 
 
 export const logout = async (req, res) => {
-  res.clearCookie("token", {
-    httpOnly: true,
-    secure: true, // true in production
-    sameSite: "lax",
-  });
+  res.cookie("token", token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  path: "/"
+});
+
   return res.json({ message: "Logged out successfully" });
 };
 
