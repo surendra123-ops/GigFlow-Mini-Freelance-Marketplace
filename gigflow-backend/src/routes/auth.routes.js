@@ -1,0 +1,13 @@
+import express from "express";
+import { register, login } from "../controllers/auth.controller.js";
+import { me } from "../controllers/auth.controller.js";
+import { protect } from "../middleware/auth.middleware.js";
+import { logout } from "../controllers/auth.controller.js";
+
+const router = express.Router();
+router.post("/register", register);
+router.post("/login", login);
+router.get("/me", protect, me);
+router.post("/logout", logout);
+
+export default router;
