@@ -11,7 +11,7 @@ const sendToken = (user, res) => {
 
   res.cookie("token", token, {
     httpOnly: true,
-    secure: false, // true in production
+    secure: true, // true in production
     maxAge: process.env.COOKIE_EXPIRE * 24 * 60 * 60 * 1000
   });
 
