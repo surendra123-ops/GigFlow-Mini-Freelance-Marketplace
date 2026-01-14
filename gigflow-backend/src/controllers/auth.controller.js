@@ -76,7 +76,7 @@ export const me = async (req, res) => {
 export const logout = async (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    secure: false, // true in production
+    secure: true, // true in production
     sameSite: "lax",
   });
   return res.json({ message: "Logged out successfully" });
