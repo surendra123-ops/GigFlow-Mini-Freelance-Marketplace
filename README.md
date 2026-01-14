@@ -1,195 +1,207 @@
+
+
+# 🚀 GigFlow – Mini Freelance Marketplace
+
+GigFlow is a lightweight freelance marketplace where **Clients** can post jobs (Gigs), **Freelancers** can bid, and **Clients** can hire one freelancer.
+This project demonstrates:
+
+✔ Authentication
+✔ Complex relationships
+✔ State management
+✔ Atomic update logic
+
+---
+
+## 🌍 Live Demo
+
+**Frontend Deployment:**
+[https://gigflow-mini-freelance-marketplace-f.onrender.com/](https://gigflow-mini-freelance-marketplace-f.onrender.com/)
+
+---
+
+## 🛠 Tech Stack
+
+### **Frontend**
+
+* React (Vite)
+* Tailwind CSS
+* Context API (Authentication State)
+
+### **Backend**
+
+* Node.js + Express.js
+* MongoDB + Mongoose
+* JWT (Stored in HttpOnly Cookies)
+
+### **Other**
+
+* Axios
+* cookie-parser
+* CORS
+
+---
+
+## ✨ Features Overview
+
+### 👤 **User Authentication**
+
+* Register / Login
+* JWT Auth with HttpOnly Cookies
+* Logout
+* Protected Routes
+
+### 📌 **Gigs (Job Posting)**
+
+* Create new gig (Title, Description, Budget)
+* Search/filter by title
+* Show only **open** gigs
+* Only gig owner can view its bids
+
+### 💰 **Bidding System**
+
+* Freelancers submit bid (Price + Message)
+* User cannot bid twice on same gig
+* Gig owners see all bids
+* Shows bidder **name & email**
+
+### 🧩 **Hiring Logic (Atomic Updates)**
+
+When the owner clicks **Hire**, the system:
+
+1. Updates Gig status → `assigned`
+2. Marks selected bid → `hired`
+3. Marks all other bids → `rejected`
+4. Freelancer sees updated status under **My Bids**
+
+This ensures:
+✔ No race conditions
+✔ Single-hire consistency
+✔ Clean relational integrity
+
+---
+
+## 📁 Folder Structure
+
 ```
-# GigFlow – Mini Freelance Marketplace
-
-GigFlow is a simple freelance platform where Clients can post jobs (Gigs),
-Freelancers can submit bids, and Clients can hire one freelancer.
-This project demonstrates authentication, complex relationships, state
-management, and atomic update logic.
-
----
-
-## 🚀 Tech Stack
-
-### Frontend
-- React (Vite)
-- Tailwind CSS
-- Context API (Auth state)
-
-### Backend
-- Node.js + Express.js
-- MongoDB + Mongoose
-- JWT Authentication using HttpOnly cookies
-
-### Other
-- Axios
-- cookie-parser
-- Cors
-
----
-
-## ⚙️ Features
-
-### 👤 User Authentication
-- Register / Login
-- Secure JWT stored in HttpOnly Cookies
-- Logout
-- Auth-protected routes
-
-### 📌 Gigs (Jobs)
-- Create a new Gig (Title, Description, Budget)
-- Search/filter by title
-- View only *open* gigs
-- Only owner can view bids on their gig
-
-### 💰 Bidding System
-- Freelancer places a bid (price + message)
-- User cannot bid twice on same gig
-- Owner sees all bids for their gig
-- Shows bidder name + email
-
-### 🧩 Hiring Logic (Crucial Feature)
-When the Client clicks **Hire**:
-
-1. Gig status becomes **assigned**
-2. Selected bid becomes **hired**
-3. All other bids automatically become **rejected**
-4. Freelancer can view updated status from **My Bids**
-
-This logic is **atomic**, so it ensures:
-✔ No race conditions  
-✔ Data remains consistent  
-
----
-
-## 🧱 Folder Structure
-
-```
-
 gigflow/
 ├── backend/
-│    ├── src/
-│    │    ├── controllers/
-│    │    ├── models/
-│    │    ├── routes/
-│    │    └── middleware/
-│    ├── .env.example
-│    └── server.js
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   └── middleware/
+│   ├── .env.example
+│   └── server.js
 │
 ├── frontend/
-│    ├── src/
-│    │    ├── pages/
-│    │    ├── components/
-│    │    └── context/
-│    ├── .env.example
-│    └── vite.config.js
+│   ├── src/
+│   │   ├── pages/
+│   │   ├── components/
+│   │   └── context/
+│   ├── .env.example
+│   └── vite.config.js
 │
-├── README.md
-└── package.json (optional root)
-
+└── README.md
 ```
 
 ---
 
-## 🔧 Installation Instructions
+## 🧰 Installation & Setup
 
-### 1️⃣ Clone the Repository
+### **1️⃣ Clone the Repository**
 
-```
-
-git clone [https://github.com/YOUR_USERNAME/gigflow.git](https://github.com/YOUR_USERNAME/gigflow.git)
+```bash
+git clone https://github.com/YOUR_USERNAME/gigflow.git
 cd gigflow
-
 ```
 
 ---
 
-## 🖥️ Backend Setup
+## 🖥 Backend Setup
 
-```
-
+```bash
 cd backend
 npm install
 cp .env.example .env
 npm run dev
-
 ```
 
 ---
 
 ## 🌐 Frontend Setup
 
-```
-
+```bash
 cd frontend
 npm install
 cp .env.example .env
 npm run dev
-
 ```
 
 ---
 
-## 🧪 API Endpoints
+## 📡 API Endpoints
 
-### Auth
-| Method | Endpoint              | Description |
-|--------|------------------------|-------------|
-| POST   | /api/auth/register     | Create user |
-| POST   | /api/auth/login        | Login user  |
+### **Auth**
 
-### Gigs
-| Method | Endpoint         | Description |
-|--------|-------------------|-------------|
-| GET    | /api/gigs         | Fetch open gigs (search supported) |
-| POST   | /api/gigs         | Create gig |
-| GET    | /api/gigs/mine    | My posted gigs |
+| Method | Endpoint           | Description       |
+| ------ | ------------------ | ----------------- |
+| POST   | /api/auth/register | Register new user |
+| POST   | /api/auth/login    | Login user        |
 
-### Bids
-| Method | Endpoint             | Description |
-|--------|------------------------|-------------|
-| POST   | /api/bids             | Create bid |
+### **Gigs**
+
+| Method | Endpoint       | Description                        |
+| ------ | -------------- | ---------------------------------- |
+| GET    | /api/gigs      | Fetch open gigs (search supported) |
+| POST   | /api/gigs      | Create new gig                     |
+| GET    | /api/gigs/mine | View gigs posted by user           |
+
+### **Bids**
+
+| Method | Endpoint              | Description                     |
+| ------ | --------------------- | ------------------------------- |
+| POST   | /api/bids             | Create bid                      |
 | GET    | /api/bids/:gigId      | Get bids for a gig (owner only) |
-| PATCH  | /api/bids/:bidId/hire | Hire freelancer |
+| PATCH  | /api/bids/:bidId/hire | Hire freelancer                 |
 
+---
 
-### 🔹 backend/.env.example
+## 🔐 Environment Variables
+
+### **backend/.env.example**
 
 ```
-
 MONGO_URI=
 JWT_SECRET=
-CLIENT_URL=[http://localhost:5173](http://localhost:5173)
+CLIENT_URL=http://localhost:5173
 PORT=5000
+```
 
+### **frontend/.env.example**
+
+```
+VITE_API_URL=http://localhost:5000/api
 ```
 
 ---
 
-### 🔹 frontend/.env.example
+## 🔥 Advanced Logic (Atomic Hiring)
 
-```
+The **hire** action is atomic to ensure:
 
-VITE_API_URL=[http://localhost:5000/api](http://localhost:5000/api)
+* No duplicate hiring
+* No inconsistent bid states
+* No conflicting updates
 
-```
-
----
-
-## 🔥 Advanced Logic (Atomic Update)
-
-The hiring logic ensures:
-- No other user can accidentally overwrite hiring
-- No two freelancers can be hired for same gig
-- Data always stays consistent
+This guarantees that **only one freelancer** is hired and other bids are automatically rejected, keeping data consistent.
 
 ---
 
-## 📬 Contact
+## 👤 Author
 
-If you have any questions, feel free to reach out!  
-GigFlow – Created by Surendra Yenika
+**GigFlow — Created by Surendra Yenika**
 
-```
+If you have any questions, feel free to reach out!
 
 ---
 
